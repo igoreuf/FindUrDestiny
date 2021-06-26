@@ -34,13 +34,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator CreateObstacles(float time)
+    IEnumerator CreateObstacles()
     {
+        float time = GamePlayAI.TimeSpawn();
         while (!isGameOver)
         {
-            Vector3 randPos = obstacleSpawners[Random.Range(0, obstacleSpawners.Length)].position;
+            Vector3 randPos = GamePlayAI.RandomPos(obstacleSpawners);
+            obstanceObject = GamePlayAI.GenerateObject(obstanceObject);
             Instantiate(obstanceObject, randPos, Quaternion.identity);
             yield return new WaitForSeconds(time);
+            time = GamePlayAI.TimeSpawn();
         }
 
     }
@@ -58,7 +61,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         messageScreen.text = "Get Ready!";
         yield return new WaitForSeconds(3f);
-        StartCoroutine(CreateObstacles(5f));
+        StartCoroutine(CreateObstacles());
         messageScreen.text = "Go!";
         player.enabled = true;
         yield return new WaitForSeconds(2f);

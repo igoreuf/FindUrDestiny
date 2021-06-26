@@ -3,22 +3,16 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    public Text scoreText;
-    public int scoreValue = 0;
+    public static int scoreValue;
     public AudioClip scoreSound;
     private AudioSource audioSource;
 
     // Update is called once per frame
 
-    private void Start()
+    private void Awake()
     {
-        scoreText.text = "0";
         audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Update()
-    {
-        scoreText.text = scoreValue.ToString();
+        scoreValue = 0;
     }
 
     public void AddScore()

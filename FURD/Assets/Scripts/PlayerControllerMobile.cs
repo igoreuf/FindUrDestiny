@@ -56,7 +56,11 @@ public class PlayerControllerMobile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        jumping = false;
-        onGround = true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            jumping = false;
+            onGround = true;
+        }
+
     }
 }

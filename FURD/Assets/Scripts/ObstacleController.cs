@@ -12,18 +12,9 @@ public class ObstacleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        score = GameObject.FindGameObjectWithTag("GameController").GetComponent<Score>(); ;
         rBody = GetComponent<Rigidbody>();
-        float rand = Random.Range(0f,1f);
-        if(rand > 0.5f)
-        {
-            transform.localScale = new Vector3(1, Random.Range(1, 5), 0.5f);
-        }
-        else
-        {
-            transform.localScale = new Vector3(Random.Range(1, 5),1, 0.5f);
-        }
-        score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
-        vel = speed * Mathf.Log10(5 + 2*score.scoreValue);
+        vel = speed * GamePlayAI.SpeedSpawn();
 
 
     }
@@ -38,7 +29,7 @@ public class ObstacleController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rBody.MovePosition(transform.position + Vector3.back * Time.deltaTime * vel);
+        rBody.MovePosition(transform.position + Time.deltaTime * vel * Vector3.back);
     }
 
     private void OnTriggerEnter(Collider other)
